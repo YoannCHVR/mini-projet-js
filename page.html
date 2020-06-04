@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <!-- Liaisons aux fichiers css de Bootstrap -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="dist/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="sheet.css">
   </head>
   <body>
@@ -12,10 +13,84 @@
       <div class="card">
         <div class="card-header">Liste des élèves</div>
         <div class="card-body">
-          <p class="bg-danger">Bootstrap is working !</p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Identifiant</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Age</th>
+                <th scope="col">Situation familiale</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>MOKHTARI</td>
+                <td>Nadir</td>
+                <td>26</td>
+                <td>Célibataire</td>
+                <td>
+                  <div class="btn-group border-0">
+                    <button id="edit" type="button" class="btn btn-lg text-light">
+                      <i class="fas fa-pen"></i>
+                    </button>
+
+                    <button id="delete" type="button" class="btn btn-lg text-light">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>GENSE</td>
+                <td>Aurélie</td>
+                <td>24</td>
+                <td>Célibataire</td>
+                <td>
+                  <div class="btn-group border-0">
+                    <button id="edit" type="button" class="btn btn-lg text-light">
+                      <i class="fas fa-pen"></i>
+                    </button>
+
+                    <button id="delete" type="button" class="btn btn-lg text-light">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>D'ORCHYMONT</td>
+                <td>Margaux</td>
+                <td>24</td>
+                <td>Pacsé</td>
+                <td>
+                  <div class="btn-group border-0">
+                    <button id="edit" type="button" class="btn btn-lg text-light">
+                      <i class="fas fa-pen"></i>
+                    </button>
+
+                    <button id="delete" type="button" class="btn btn-lg text-light">
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
+
+    <div class="container mt-3">
+      <button id="add" type="button" class="btn btn-lg text-light">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+
 
     <!-- liaison à jQuery (à charger pour être utilisé par Bootstrap) impérativement avant bootstrap.min.js -->
     <script src="dist/js/jquery.min.js"></script>

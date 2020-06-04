@@ -1,0 +1,23 @@
+button {
+  font-size: 13px !important;
+}
+
+button#edit {
+  background: #5BC0DE;
+}
+
+button#delete {
+  background: #D9534F;
+}
+
+button#add {
+  background: #5CB85C;
+}
+
+button#validate {
+  background: #337AB7;
+}
+
+button#reload {
+  background: #F0AD4E;
+}
