@@ -14,10 +14,14 @@ button#add {
   background: #5CB85C;
 }
 
-button#validate {
+button#save {
   background: #337AB7;
 }
 
-button#reload {
+button#cancel {
   background: #F0AD4E;
+}
+
+label {
+  font-weight: bold;
 }
