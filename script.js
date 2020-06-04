@@ -37,9 +37,17 @@ function deleteStudent(idStudent) {
 
 function addStudent() {
     document.getElementById("form-student").classList.toggle("d-none");
+    cancelStudent();
     var lignesTab = document.getElementById("table-students").getElementsByTagName("tr");
     var maxId = parseInt(lignesTab[lignesTab.length - 1].getElementsByTagName("td")[0].textContent);
     document.getElementById("id").value = maxId + 1;
+}
+
+function saveStudent() {
+
+}
+
+function cancelStudent() {
     document.getElementById("name").value = '';
     document.getElementById("fname").value = '';
     document.getElementById("age").value = '';
@@ -48,12 +56,4 @@ function addStudent() {
         options[i].removeAttribute('selected');
     }
     options[0].setAttribute('selected', '');
-}
-
-function saveStudent() {
-
-}
-
-function cancelStudent() {
-    document.getElementById("form-student").classList.add("d-none");
 }
