@@ -8,209 +8,216 @@ function removeItemArray(array, value) {
     return array;
 }
 
-function disableById(id) {
-  document.getElementById(id).classList.remove("d-none");
-}
+var tabStudent = [];
 
-var tabEtudiant = [];
+class Student {
+    constructor(id, name, firstName, age, situation) {
+        this.id = id;
+        this.name = name;
+        this.firstName = firstName;
+        this.age = age;
+        this.situation = situation;
 
-class Etudiant {
-  constructor(identifiant, nom, prenom, age, situation) {
-    this.identifiant = identifiant;
-    this.nom = nom;
-    this.prenom = prenom;
-    this.age = age;
-    this.situation = situation;
-
-    if(isNaN(age)) {
-      this.age = 0;
+        if (isNaN(age)) {
+            this.age = 0;
+        }
     }
-  }
 
-  getIdentifiant() {
-    return this.identifiant;
-  }
+    getId() {
+        return this.id;
+    }
 
-  setIdentifiant(value) {
-    this.identifiant = value;
-  }
+    setId(value) {
+        this.id = value;
+    }
 
-  getNom() {
-    return this.nom;
-  }
+    getName() {
+        return this.name;
+    }
 
-  setNom(value) {
-    this.nom = value;
-  }
+    setName(value) {
+        this.name = value;
+    }
 
-  getPrenom() {
-    return this.prenom;
-  }
+    getFirstName() {
+        return this.firstName;
+    }
 
-  setPrenom(value) {
-    this.prenom = value;
-  }
+    setFirstName(value) {
+        this.firstName = value;
+    }
 
-  getAge() {
-    return this.age;
-  }
+    getAge() {
+        return this.age;
+    }
 
-  setAge(value) {
-    this.age = value;
-  }
+    setAge(value) {
+        this.age = value;
+    }
 
-  getSituation() {
-    return this.situation;
-  }
+    getSituation() {
+        return this.situation;
+    }
 
-  setSituation(value) {
-    this.situation = value;
-  }
+    setSituation(value) {
+        this.situation = value;
+    }
 }
 
 function getStudent(idStudent) {
-  for (var i = 0; i < tabEtudiant.length; i++) {
-    let etudiant = tabEtudiant[i];
+    for (var i = 0; i < tabStudent.length; i++) {
+        let student = tabStudent[i];
 
-    for (var property in etudiant) {
-      if (idStudent == etudiant.getIdentifiant()) {
-        return etudiant;
-      }
+        for (var property in student) {
+            if (idStudent == student.getId()) {
+                return student;
+            }
+        }
     }
-  }
 }
 
 function addStudent() {
-  let lastId = tabEtudiant[tabEtudiant.length - 1].getIdentifiant();
+    let lastId = tabStudent[tabStudent.length - 1].getId();
 
-  document.getElementById("form-student").classList.toggle("d-none");
-  document.getElementById("id").readOnly = false;
-  cancelStudent();
+    document.getElementById("form-student").classList.toggle("d-none");
+    document.getElementById("id").readOnly = false;
+    resetInputs();
 
-  document.getElementById("id").value = lastId + 1;
+    document.getElementById("id").value = lastId + 1;
+    document.getElementById("id").min = lastId + 1;
 }
 
 function editStudent(idStudent) {
-  let etudiant = getStudent(idStudent);
-  let donnees = document.getElementById("student" + etudiant.getIdentifiant()).getElementsByTagName("td");
+    resetInputs();
 
-  document.getElementById("id").readOnly = true; //disable id input
-  document.getElementById("id").value = etudiant.getIdentifiant();
-  document.getElementById("name").value = etudiant.getNom();
-  document.getElementById("fname").value = etudiant.getPrenom();
-  document.getElementById("age").value = etudiant.getAge();
+    let student = getStudent(idStudent);
 
-  var options = document.getElementById("situation").getElementsByTagName("option");
+    document.getElementById("id").readOnly = true; //disable id input
+    document.getElementById("id").value = student.getId();
+    document.getElementById("name").value = student.getName();
+    document.getElementById("firstName").value = student.getFirstName();
+    document.getElementById("age").value = student.getAge();
+    document.getElementById("situation").value = student.getSituation();
 
-  for (var i = 0; i < options.length - 1; i++) {
-      options[i].removeAttribute('selected');
-  }
-
-  for (i = 0; i < options.length - 1; i++) {
-      if (options[i].value == etudiant.getSituation())
-          options[i].setAttribute('selected', '');
-  }
-
-  disableById("form-student");
+    document.getElementById("form-student").classList.remove("d-none");
 }
 
 function cancelStudent() {
-  var options = document.getElementById("situation").getElementsByTagName("option");
-
-  document.getElementById("name").value = '';
-  document.getElementById("fname").value = '';
-  document.getElementById("age").value = '';
-
-  for (var i = 0; i < 5; i++) {
-      options[i].removeAttribute('selected');
-  }
-  options[0].setAttribute('selected', '');
+    document.getElementById("name").value = '';
+    document.getElementById("firstName").value = '';
+    document.getElementById("age").value = '';
+    document.getElementById("situation").value = '';
 }
 
 function saveStudent() {
-  let etudiant;
-  let inputs = document.getElementById("form-student").getElementsByTagName("input");
-  let situation = document.getElementById("situation");
+    let student;
+    let inputs = document.getElementById("form-student").getElementsByTagName("input");
+    let situation = document.getElementById("situation");
 
-  let identifiantInput = parseInt(inputs[0].value);
-  let nameInput = inputs[1].value;
-  let fnameInput = inputs[2].value;
-  let ageInput = parseInt(inputs[3].value);
-  let situationInput = situation.options[situation.selectedIndex].value;
+    let idInput = parseInt(inputs[0].value);
+    let nameInput = inputs[1].value;
+    let firstNameInput = inputs[2].value;
+    let ageInput = parseInt(inputs[3].value);
+    let situationInput = situation.options[situation.selectedIndex].value;
 
-  if (getStudent(identifiantInput)) {
-    etudiant = getStudent(identifiantInput);
+    if (checkInputs()) {
+        if (getStudent(idInput)) {
+            student = getStudent(idInput);
 
-    etudiant.setNom(nameInput);
-    etudiant.setPrenom(fnameInput);
-    etudiant.setAge(ageInput);
-    etudiant.setSituation(situationInput);
+            student.setName(nameInput);
+            student.setFirstName(firstNameInput);
+            student.setAge(ageInput);
+            student.setSituation(situationInput);
+        } else {
+            student = new Student(
+                idInput,
+                nameInput,
+                firstNameInput,
+                ageInput,
+                situationInput
+            );
 
-    console.log(tabEtudiant);
-  } else {
-    etudiant = new Etudiant(
-      identifiantInput,
-      nameInput,
-      fnameInput,
-      ageInput,
-      situationInput
-    );
+            tabStudent.push(student);
+        }
 
-    tabEtudiant.push(etudiant);
-  }
+        updateStudent(student);
 
-  updateEtudiant(etudiant);
+        document.getElementById("form-student").classList.add("d-none");
+    } else {
+        alert("Veuillez renseigner les champs vides !")
+    }
+}
 
-  document.getElementById("form-student").classList.add("d-none");
+tabInputs = ["id", "name", "firstName", "age", "situation"];
+
+function checkInputs() {
+    checking = true;
+    for (var i = 0; i < tabInputs.length; i++) {
+        document.getElementById(tabInputs[i]).classList.remove("border-danger","border-success");
+        if (document.getElementById(tabInputs[i]).value == "") {
+            document.getElementById(tabInputs[i]).classList.add("border-danger");
+            checking = false;
+        } else {
+            document.getElementById(tabInputs[i]).classList.add("border-success");
+        }
+    }
+    return checking;
+}
+
+function resetInputs() {
+    cancelStudent();
+    for (var i = 0; i < tabInputs.length; i++) {
+        document.getElementById(tabInputs[i]).classList.remove("border-danger","border-success");
+    }
 }
 
 function deleteStudent(idStudent) {
-  let etudiant = getStudent(idStudent);
+    let student = getStudent(idStudent);
 
-  document.getElementById("student" + etudiant.getIdentifiant()).remove();
+    document.getElementById("student" + student.getId()).remove();
 
-  removeItemArray(tabEtudiant, etudiant);
+    removeItemArray(tabStudent, student);
 
-  document.getElementById("form-student").classList.add("d-none");
+    document.getElementById("form-student").classList.add("d-none");
 }
 
-function updateEtudiant(etudiant) {
-  let studentTR = document.getElementById("student" + etudiant.getIdentifiant());
-  let tab = document.getElementById("table-students");
-  let idStudent = etudiant.getIdentifiant();
+function updateStudent(student) {
+    let studentTR = document.getElementById("student" + student.getId());
+    let tab = document.getElementById("table-students");
+    let idStudent = student.getId();
 
-  if (!studentTR) {
-    studentTR = tab.lastElementChild.appendChild(document.createElement("tr"));
-    studentTR.id = "student" + idStudent;
-  }
+    if (!studentTR) {
+        studentTR = tab.lastElementChild.appendChild(document.createElement("tr"));
+        studentTR.id = "student" + idStudent;
+    }
 
-  studentTR.innerHTML =
-    '<td>' + idStudent + '</td>' +
-    '<td>' + etudiant.getNom() + '</td>' +
-    '<td>' + etudiant.getPrenom() + '</td>' +
-    '<td>' + etudiant.getAge() + '</td>' +
-    '<td>' + etudiant.getSituation() + '</td>' +
-    '<td>' +
-      '<div class="btn-group border-0">' +
+    studentTR.innerHTML =
+        '<td>' + idStudent + '</td>' +
+        '<td>' + student.getName() + '</td>' +
+        '<td>' + student.getFirstName() + '</td>' +
+        '<td>' + student.getAge() + '</td>' +
+        '<td>' + student.getSituation() + '</td>' +
+        '<td>' +
+        '<div class="btn-group border-0">' +
         '<button id="edit" type="button" class="btn btn-lg text-light" onclick="editStudent(\'' + idStudent + '\')">' +
-          '<i class="fas fa-pen"></i>' +
+        '<i class="fas fa-pen"></i>' +
         '</button>' +
 
         '<button id="delete" type="button" class="btn btn-lg text-light" onclick="deleteStudent(\'' + idStudent + '\')">' +
-          '<i class="fas fa-trash-alt"></i>' +
+        '<i class="fas fa-trash-alt"></i>' +
         '</button>' +
-      '</div>' +
-    '</td>';
+        '</div>' +
+        '</td>';
 }
 
 function init() {
-  tabEtudiant.push(new Etudiant(1, "MOKHTARI", "Nadir", 26, "Célibataire"));
-  tabEtudiant.push(new Etudiant(2, "GENSE", "Aurélie", 24, "Célibataire"));
-  tabEtudiant.push(new Etudiant(3, "D'ORCHYMONT", "Margaux", 24, "Pacsé"));
+    tabStudent.push(new Student(1, "MOKHTARI", "Nadir", 26, "Célibataire"));
+    tabStudent.push(new Student(2, "GENSE", "Aurélie", 24, "Célibataire"));
+    tabStudent.push(new Student(3, "D'ORCHYMONT", "Margaux", 24, "Pacsé"));
 
-  for (var i = 0; i < tabEtudiant.length; i++) {
-    updateEtudiant(tabEtudiant[i]);
-  }
+    for (var i = 0; i < tabStudent.length; i++) {
+        updateStudent(tabStudent[i]);
+    }
 }
 
 init();
