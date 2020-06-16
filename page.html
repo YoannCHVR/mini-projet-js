@@ -9,9 +9,12 @@
     <link rel="stylesheet" href="sheet.css">
   </head>
   <body>
+    <!-- Tableau des élèves vide -->
     <div class="container mt-3">
       <div class="card">
+        <!-- Titre du tableau -->
         <div class="card-header">Liste des élèves</div>
+        <!-- Tableau -->
         <div class="card-body">
           <table id="table-students" class="table table-bordered">
             <thead>
@@ -31,32 +34,41 @@
       </div>
     </div>
 
+    <!-- Bouton d'affichage du formulaire -->
     <div class="container mt-3">
       <button id="add" type="button" class="btn btn-lg text-light" onclick="addStudent()">
         <i class="fas fa-plus"></i>
       </button>
     </div>
 
+    <!-- Formulaire d'ajout d'un élève -->
     <div id="form-student" class="container mt-3 d-none">
       <div class="card">
+        <!-- Titre de formulaire -->
         <div class="card-header">Edition de l'élève</div>
+        <!-- Formulaire -->
         <div class="card-body">
+          <!-- Saisie de l'identifiant de l'éleve -->
           <div class="form-group">
             <label for="id">Identifiant :</label>
             <input name="id" id="id" type="number" class="form-control" min="1"/>
           </div>
+          <!-- Saisie du nom de l'élève -->
           <div class="form-group">
             <label for="name">Nom :</label>
             <input name="name" id="name" type="text" class="form-control"/>
           </div>
+          <!-- Saisie du prénom de l'élève -->
           <div class="form-group">
             <label for="firstName">Prénom :</label>
             <input name="firstName" id="firstName" type="text" class="form-control"/>
           </div>
+          <!-- Saisie de l'age de l'élève -->
           <div class="form-group">
             <label for="age">Age :</label>
             <input name="age" id="age" type="number" class="form-control" min="1" max="99"/>
           </div>
+          <!-- Choix de la situation familiale de l'élève -->
           <div class="form-group">
             <label for="situation">Situation familiale :</label>
             <select name="situation" id="situation" class="form-control">
@@ -67,6 +79,7 @@
               <option value="Veuf">Veuf</option>
             </select>
           </div>
+          <!-- Boutons de validation et d'annulation du formulaire -->
           <div class="text-right w-100">
             <div class="btn-group border-0">
               <button id="save" type="button" class="btn btn-lg text-light" onclick="saveStudent()">

@@ -1,15 +1,7 @@
-function removeItemArray(array, value) {
-    let index = array.indexOf(value);
-
-    if (index > -1) {
-        array.splice(index, 1);
-    }
-
-    return array;
-}
-
+// Tableau de stockage des étudiant en mémoire
 var tabStudent = [];
 
+// Objet représentant un étudiant
 class Student {
     constructor(id, name, firstName, age, situation) {
         this.id = id;
@@ -64,6 +56,7 @@ class Student {
     }
 }
 
+// Récupération d'un étudiant dans le tableau en mémoire avec l'id de l'étudiant
 function getStudent(idStudent) {
     for (var i = 0; i < tabStudent.length; i++) {
         let student = tabStudent[i];
@@ -76,6 +69,17 @@ function getStudent(idStudent) {
     }
 }
 
+function removeItemArray(array, value) {
+    let index = array.indexOf(value);
+
+    if (index > -1) {
+        array.splice(index, 1);
+    }
+
+    return array;
+}
+
+// Ajout d'un étudiant
 function addStudent() {
     let lastId = tabStudent[tabStudent.length - 1].getId();
 
@@ -87,6 +91,7 @@ function addStudent() {
     document.getElementById("id").min = lastId + 1;
 }
 
+// Édition d'un étudiant
 function editStudent(idStudent) {
     resetInputs();
 
@@ -102,6 +107,7 @@ function editStudent(idStudent) {
     document.getElementById("form-student").classList.remove("d-none");
 }
 
+// Annulation d'ajout d'un éétudiant
 function cancelStudent() {
     document.getElementById("name").value = '';
     document.getElementById("firstName").value = '';
@@ -109,6 +115,7 @@ function cancelStudent() {
     document.getElementById("situation").value = '';
 }
 
+// Sauvegarde d'un étudiant
 function saveStudent() {
     let student;
     let inputs = document.getElementById("form-student").getElementsByTagName("input");
@@ -150,6 +157,7 @@ function saveStudent() {
 
 tabInputs = ["id", "name", "firstName", "age", "situation"];
 
+// Vérification des champs vides du formulaire
 function checkInputs() {
     checking = true;
     for (var i = 0; i < tabInputs.length; i++) {
@@ -164,6 +172,7 @@ function checkInputs() {
     return checking;
 }
 
+// Réinitialisation des champs du formulaire
 function resetInputs() {
     cancelStudent();
     for (var i = 0; i < tabInputs.length; i++) {
@@ -171,6 +180,7 @@ function resetInputs() {
     }
 }
 
+// Suppression d'un étudiant
 function deleteStudent(idStudent) {
     let student = getStudent(idStudent);
 
@@ -181,6 +191,7 @@ function deleteStudent(idStudent) {
     document.getElementById("form-student").classList.add("d-none");
 }
 
+// Modification d'un étudiant
 function updateStudent(student) {
     let studentTR = document.getElementById("student" + student.getId());
     let tab = document.getElementById("table-students");
@@ -210,6 +221,7 @@ function updateStudent(student) {
         '</td>';
 }
 
+// Initialisation du tableau avec les 3 étudiants de base
 function init() {
     tabStudent.push(new Student(1, "MOKHTARI", "Nadir", 26, "Célibataire"));
     tabStudent.push(new Student(2, "GENSE", "Aurélie", 24, "Célibataire"));
